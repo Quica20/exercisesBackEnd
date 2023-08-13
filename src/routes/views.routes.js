@@ -16,7 +16,17 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/realtimeproducts', async (req, res) => {
-    res.render('realTimeProducts');
+    let products = await productManager.getProducts();
+    res.render('realTimeProducts',
+        {
+            title: "Inicio",
+            products: products
+        }
+    );
+});
+
+router.get('/chat', async (req, res) => {
+    res.render('chat');
 })
 
 export default router;

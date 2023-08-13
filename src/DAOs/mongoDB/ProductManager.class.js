@@ -11,13 +11,13 @@ export default class ProductManager {
     }
 
     async getProducts(limit = null) {
-        let result = await productsModel.find()
-        result
+        let result = await productsModel.find({}).lean()
+        return result
     }
 
     async getProductById(id) {
         let result = await productsModel.findOne({ _id: id })
-        result
+        return result
     }
 
     async updateProduct(id, updatedProduct) {

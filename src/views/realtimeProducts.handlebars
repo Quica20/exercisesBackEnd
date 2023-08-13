@@ -21,7 +21,14 @@
 
 <h1>Productos en tiempo real: </h1>
 <div id="products-container">
-    {{!-- Aca van los productos --}}
+        {{#each products}}
+        <div>
+            <p>----------------------------------------</p>
+            <p>title:{{this.title}}</p>
+            <p>description:{{this.description}}</p>
+            <p>price:{{this.price}}</p>
+        </div>
+    {{/each}}
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
