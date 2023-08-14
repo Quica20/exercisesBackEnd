@@ -10,8 +10,19 @@ export default class ProductManager {
         return result
     }
 
-    async getProducts(limit = null) {
-        let result = await productsModel.find({}).lean()
+    async getProducts(limit = 10, page = 1, sort = 0, filter = null, valueFilter = null) {
+        let whereOptions = {}
+        if (filter != '' && valueFilter != '') {
+            whereOptions = { [filter]: valueFilter }//De esta forma podemos colocar una key dinamica. []
+        };
+        let result = await productsModel.paginate(
+            whereOptions,
+            {
+                limit: limit,
+                page: page,
+                sort: { price: sort }
+            }
+        );
         return result
     }
 

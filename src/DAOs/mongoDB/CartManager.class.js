@@ -33,4 +33,16 @@ export default class CartManager {
         return;
     }
 
+    async deleteProductFromCart(cid, pid) {
+        const cart = await this.getCartById(cid);
+        cart.products.pull(pid)
+        await cart.save()
+        return;
+    };
+
+    async deleteAllProductsFromCart(cid) {
+        const cart = await this.getCartById(cid);
+        cart.products = []
+        await cart.save()
+    }
 }

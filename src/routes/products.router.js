@@ -6,9 +6,14 @@ let productManager = new ProductManager()
 const router = Router()
 
 router.get('/', async (req, res) => {
-    let limit = Number(req.query.limit)
-    let products = await productManager.getProducts(limit)
-    console.log(products)
+    let limit = Number(req.query.limit);
+    let page = Number(req.query.page);
+    let sort = Number(req.query.sort);
+    let filter = req.query.filter;
+    let valueFilter = req.query.valueFilter;
+
+    let products = await productManager.getProducts(limit, page, sort, filter, valueFilter);
+
     res.send(products) // Se envian los productos en forma de objeto como pide la consigna
 })
 
