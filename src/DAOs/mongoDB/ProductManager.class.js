@@ -29,12 +29,11 @@ export default class ProductManager {
     //Obtenemos los productos 'Paginate' y 'Filtros' : 
     getProducts = async (page) => {
         if (!page) page = 1;
-        let result = await productsModel.paginate({}, { page, limit: 10, lean: true })
+        let result = await productsModel.paginate({}, { page, limit: 5, lean: true })
         result.prevLink = result.hasPrevPage ? `http://localhost:8080/products?page=${result.prevPage}` : '';
         result.nextLink = result.hasNextPage ? `http://localhost:8080/products?page=${result.nextPage}` : '';
         result.isValid = !(page <= 0 || page > result.totalPages)
         return result
-        console.log(result)
     }
 
     /*async getProducts(limit = 10, page = 1, sort = 0, filter = null, valueFilter = null) {

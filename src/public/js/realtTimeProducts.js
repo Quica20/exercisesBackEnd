@@ -23,7 +23,6 @@ socket.on("update-products", (products) => {
 })
 
 // Event listeners
-
 addProductBtn.addEventListener("click", (e) => {
     e.preventDefault()
 

@@ -3,11 +3,23 @@ import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import { Server } from 'socket.io';
 import ProductManager from './DAOs/mongoDB/productManager.class.js';
+//Import for Session:
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+import mongoose from 'mongoose';
+
 
 //Importamos las rutas:
+import sessionRouter from './routes/session.router.js';
 import routerViews from './routes/views.router.js';
 import routerProducts from './routes/products.router.js';
 import routerCarts from './routes/carts.router.js';
+
+//Connnecta database
+const connection = mongoose.connect(
+    'mongodb+srv://tomquica:Hz2Cg6jMlPEonhUv@cluster0.w2t75fc.mongodb.net/?retryWrites=true&w=majority',
+    { useNewUrlParser: true, useUnifiedTopology: true }
+);
 
 //Configuracion Inicial:
 const app = express();
@@ -16,6 +28,17 @@ app.use(express.urlencoded({ extended: true }));
 
 //Static
 app.use(express.static(__dirname + '/public'));
+
+//Config Session:
+app.use(session({
+    store: new MongoStore({
+        mongoUrl: 'mongodb+srv://tomquica:Hz2Cg6jMlPEonhUv@cluster0.w2t75fc.mongodb.net/?retryWrites=true&w=majority',
+        ttl: 15
+    }),
+    secret: 'mongoSecret',
+    resave: true,
+    saveUninitialized: false
+}));
 
 // Estructura de handlebars
 app.engine("handlebars", handlebars.engine());
@@ -57,5 +80,6 @@ app.use((req, res, next) => {
 
 // Routers
 app.use("/", routerViews);
+app.use('/api/sessions', sessionRouter);
 app.use("/products", routerProducts);
 app.use("/carts", routerCarts);

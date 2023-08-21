@@ -1,0 +1,21 @@
+<div>
+    <h1>USUARIO - Información General</h1>
+    <p>----------------------------------------</p>
+    <p>Nombre: {{user.name}}</p>
+    <p>E-mail: {{user.email}}</p>
+    <p>Edad: {{user.age}}</p>
+    <p>Tipo de Rol: {{user.role}}</p>
+    <label>Observaciones</label>
+    <input name="Observaciones">
+    <br/>
+    <a href="/register"><button>Salir</button></a>
+    <h1>PRODUCTOS</h1>
+    {{#each products}}
+        <div>
+            <p>----------------------------------------</p>
+            <h3>{{this.title}}</h3>
+            <p>Description:{{this.description}}</p>
+            <p>Price:{{this.price}}</p>
+        </div>
+    {{/each}}
+</div>
